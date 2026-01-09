@@ -5,7 +5,7 @@ process create_multiOmicDataSet_from_files {
     tuple path(samplesheet), path(counts)
 
     output:
-    path("moo*.rds")
+    path("moo*.rds"), emit: moo
 
     script:
     """
