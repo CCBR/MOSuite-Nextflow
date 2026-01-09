@@ -1,0 +1,39 @@
+# see: https://github.com/rstudio/vetiver-python/blob/main/docs/_quarto.yml
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "MOSuite-Nextflow"
+  site-url: https://ccbr.github.io/MOSuite-Nextflow
+  repo-url: https://github.com/CCBR/MOSuite-Nextflow
+  repo-actions: [edit, issue]
+  search:
+    location: navbar
+    type: textbox
+  page-navigation: true
+  sidebar:
+    style: docked
+    collapse-level: 1
+    contents: docs/**
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/CCBR/MOSuite-Nextflow
+        aria-label: CCBR/MOSuite-Nextflow GitHub
+
+  page-footer:
+    background: black
+    foreground: white
+    left: |
+      Created by the
+      [CCR Collaborative Bioinformatics Resource](https://github.com/CCBR)
+
+execute:
+  freeze: auto
+  eval: true
+  echo: true
+
+format:
+  fnl-html:
+    code-fold: show
