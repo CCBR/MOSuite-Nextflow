@@ -23,11 +23,11 @@ Initialize and run MOSuite with test data:
 mosuite-nxf init --output /data/$USER/mosuite-project
 
 # preview the jobs that will run
-mosuite-nxf run --output /data/$USER/mosuite-project --input "Hello world" \
+mosuite-nxf run --output /data/$USER/mosuite-project \
    --mode local -profile test -preview
 
 # launch a run on slurm
-mosuite-nxf run --output /data/$USER/mosuite-project --input "Hello world" \
+mosuite-nxf run --output /data/$USER/mosuite-project \
    --mode slurm -profile test
 ```
 
