@@ -17,20 +17,20 @@ counts       : ${params.counts}
 """
 .stripIndent()
 
-include { create_multiOmicDataset_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
+include { create_multiOmicDataSet_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
 
-workflow.onComplete {
-    if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
-        def message = Utils.spooker(workflow)
-        if (message) {
-            println message
-        }
-    }
-}
+// workflow.onComplete {
+//     if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
+//         def message = Utils.spooker(workflow)
+//         if (message) {
+//             println message
+//         }
+//     }
+// }
 
 workflow {
     ch_input = Channel.fromPath(file(params.samplesheet, checkIfExists: true))
         .combine(Channel.fromPath(file(params.counts, checkIfExists: true)))
 
-    ch_input | create_multiOmicDataset_from_files
+    ch_input | create_multiOmicDataSet_from_files
 }

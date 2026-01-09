@@ -1,4 +1,4 @@
-process create_multiOmicDataset_from_files {
+process create_multiOmicDataSet_from_files {
     container "${params.container}"
 
     input:
@@ -12,8 +12,8 @@ process create_multiOmicDataset_from_files {
     #!/usr/bin/env Rscript
 
     library(MOSuite)
-    moo <- create_multiOmicDataset_from_files(
-        sample_metadata_filepath = "$samplesheet",
+    moo <- create_multiOmicDataSet_from_files(
+        sample_meta_filepath = "$samplesheet",
         feature_counts_filepath = "$counts"
     )
     readr::write_rds(moo, "moo.rds")
