@@ -1,5 +1,5 @@
 name: build
-# TODO replace tool_name with the name of your tool
+# TODO replace mosuite-nxf with the name of your tool
 
 on:
   push:
@@ -34,15 +34,15 @@ jobs:
           pip install .[dev,test]
       - name: Check CLI basics
         run: |
-          which tool_name
-          tool_name --help
-          tool_name --version
-          tool_name --citation
+          which mosuite-nxf
+          mosuite-nxf --help
+          mosuite-nxf --version
+          mosuite-nxf --citation
       - name: Stub run
         run: |
           mkdir -p tmp && pushd tmp
-          tool_name init
-          tool_name run -c conf/ci_stub.config -stub --mode local
+          mosuite-nxf init
+          mosuite-nxf run -c conf/ci_stub.config -stub --mode local
           popd
       - name: "Upload Artifact"
         uses: actions/upload-artifact@v4

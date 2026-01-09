@@ -1,6 +1,6 @@
 {
-    "name": "CCBR/TOOL_NAME",
-    "homePage": "https://github.com/CCBR/TOOL_NAME",
+    "name": "CCBR/MOSuite-Nextflow",
+    "homePage": "https://github.com/CCBR/MOSuite-Nextflow",
     "repos": {
         "https://github.com/CCBR/nf-modules": {
             "modules": {

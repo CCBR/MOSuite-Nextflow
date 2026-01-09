@@ -6,9 +6,9 @@ requires = [
 build-backend = 'setuptools.build_meta'
 
 [project]
-name = 'TOOL_NAME'
+name = 'MOSuite-nxf'
 dynamic = ['version','readme']
-description = "TODO insert description of TOOL_NAME here"
+description = "Nextflow pipeline for differential multi-omics analysis"
 keywords = ["bioinformatics", "nextflow"]
 authors = [
     {name = "Kelly Sovacool", email = "kelly.sovacool@nih.gov"},
@@ -49,16 +49,16 @@ test = [
 ]
 
 [project.scripts]
-tool_name = "tool_name.src.__main__:main"
+mosuite-nxf = "mosuite-nxf.src.__main__:main"
 
 [project.urls]
-Homepage = "https://ccbr.github.io/TOOL_NAME"
-Documentation = "https://ccbr.github.io/TOOL_NAME"
-Repository = "https://github.com/CCBR/TOOL_NAME"
-Changelog = "https://github.com/CCBR/TOOL_NAME/blob/main/CHANGELOG.md"
+Homepage = "https://ccbr.github.io/MOSuite-Nextflow"
+Documentation = "https://ccbr.github.io/MOSuite-Nextflow"
+Repository = "https://github.com/CCBR/MOSuite-Nextflow"
+Changelog = "https://github.com/CCBR/MOSuite-Nextflow/blob/main/CHANGELOG.md"
 
 [tool.setuptools.package-dir]
-tool_name = "."
+mosuite-nxf = "."
 
 [tool.setuptools.package-data]
 "*" = ["CITATION.cff", "LICENSE", "VERSION", "main.nf", "nextflow.config", "assets/**", "bin/**", "conf/**", "lib/**", "modules/**", "subworkflows/**", "workflows/**", "tests/**"]

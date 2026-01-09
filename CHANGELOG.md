@@ -1,4 +1,4 @@
-## TOOL_NAME development version
+## MOSuite-nxf development version
 
 ### API-breaking changes
 
@@ -13,6 +13,6 @@
 
 - description of bug fixed
 
-## TOOL_NAME v0.1.0
+## MOSuite-nxf v0.1.0
 
-This is the first release of TOOL_NAME 🎉
+This is the first release of MOSuite-nxf 🎉

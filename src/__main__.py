@@ -1,5 +1,5 @@
 """
-Entrypoint for TOOL_NAME CLI
+Entrypoint for MOSuite-nxf CLI
 
 Check out the wiki for a detailed look at customizing this file:
 https://github.com/beardymcjohnface/Snaketool/wiki/Customising-your-Snaketool
@@ -48,12 +48,12 @@ def print_citation_flag(ctx, param, value):
     help="Print the citation in bibtex format and exit.",
 )
 def cli():
-    """TODO oneline description of TOOL_NAME
+    """TODO oneline description of MOSuite-nxf
 
-    docs: https://ccbr.github.io/TOOL_NAME
+    docs: https://ccbr.github.io/MOSuite-Nextflow
 
     For more options, run:
-    tool_name [command] --help"""
+    mosuite-nxf [command] --help"""
     pass
 
 
@@ -67,12 +67,12 @@ Nextflow options:
 \b
 EXAMPLES:
 Execute with slurm:
-  tool_name run --output path/to/outdir --mode slurm
+  mosuite-nxf run --output path/to/outdir --mode slurm
 Preview the processes that will run:
-  tool_name run --output path/to/outdir --mode local -preview
+  mosuite-nxf run --output path/to/outdir --mode local -preview
 Add nextflow args (anything supported by `nextflow run`):
-  tool_name run --output path/to/outdir --mode slurm -profile test
-  tool_name run --output path/to/outdir --mode slurm -profile test -params-file assets/params.yml
+  mosuite-nxf run --output path/to/outdir --mode slurm -profile test
+  mosuite-nxf run --output path/to/outdir --mode slurm -profile test -params-file assets/params.yml
 """
 
 
@@ -85,7 +85,7 @@ Add nextflow args (anything supported by `nextflow run`):
 @click.option(
     "--main",
     "main_path",
-    help="Path to the tool_name main.nf file or the GitHub repo (CCBR/TOOL_NAME). Defaults to the version installed in the $PATH.",
+    help="Path to the mosuite-nxf main.nf file or the GitHub repo (CCBR/MOSuite-Nextflow). Defaults to the version installed in the $PATH.",
     type=str,
     default=repo_base("main.nf"),
     show_default=True,
@@ -93,7 +93,7 @@ Add nextflow args (anything supported by `nextflow run`):
 )
 @click.option(
     "--output",
-    help="Output directory path for tool_name init & run. Equivalient to nextflow launchDir. Defaults to your current working directory.",
+    help="Output directory path for mosuite-nxf init & run. Equivalient to nextflow launchDir. Defaults to your current working directory.",
     type=click.Path(file_okay=False, dir_okay=True, writable=True),
     default=pathlib.Path.cwd(),
     show_default=False,
@@ -120,23 +120,23 @@ def run(main_path, output, _mode, force_all, **kwargs):
     """
     Run the workflow
 
-    Note: you must first run `tool_name init --output <output_dir>` to initialize
+    Note: you must first run `mosuite-nxf init --output <output_dir>` to initialize
     the output directory.
 
-    docs: https://ccbr.github.io/TOOL_NAME
+    docs: https://ccbr.github.io/MOSuite-Nextflow
     """
-    if (  # this is the only acceptable github repo option for tool_name
-        main_path != "CCBR/TOOL_NAME"
+    if (  # this is the only acceptable github repo option for mosuite-nxf
+        main_path != "CCBR/MOSuite-Nextflow"
     ):
         # make sure the path exists
         if not os.path.exists(main_path):
             raise FileNotFoundError(
-                f"Path to the tool_name main.nf file not found: {main_path}"
+                f"Path to the mosuite-nxf main.nf file not found: {main_path}"
             )
     output_dir = output if isinstance(output, pathlib.Path) else pathlib.Path(output)
     if not output_dir.is_dir() or not (output_dir / "nextflow.config").exists():
         raise FileNotFoundError(
-            f"output directory not initialized: {output_dir}. Hint: you must initialize the output directory with `tool_name init --output {output_dir}`"
+            f"output directory not initialized: {output_dir}. Hint: you must initialize the output directory with `mosuite-nxf init --output {output_dir}`"
         )
     current_wd = os.getcwd()
     try:
@@ -146,7 +146,7 @@ def run(main_path, output, _mode, force_all, **kwargs):
             nextfile_path=main_path,
             mode=_mode,
             force_all=force_all,
-            pipeline_name="TOOL_NAME",
+            pipeline_name="MOSuite-nxf",
             **kwargs,
         )
     finally:
@@ -156,7 +156,7 @@ def run(main_path, output, _mode, force_all, **kwargs):
 @click.command()
 @click.option(
     "--output",
-    help="Output directory path for tool_name init & run. Equivalient to nextflow launchDir. Defaults to your current working directory.",
+    help="Output directory path for mosuite-nxf init & run. Equivalient to nextflow launchDir. Defaults to your current working directory.",
     type=click.Path(file_okay=False, dir_okay=True, writable=True),
     default=pathlib.Path.cwd(),
     show_default=False,
@@ -164,7 +164,7 @@ def run(main_path, output, _mode, force_all, **kwargs):
 def init(output, **kwargs):
     """Initialize the working directory by copying the system default config files"""
     output_dir = output if isinstance(output, pathlib.Path) else pathlib.Path(output)
-    ccbr_tools.pkg_util.msg_box(f"Initializing TOOL_NAME in {output_dir}")
+    ccbr_tools.pkg_util.msg_box(f"Initializing MOSuite-nxf in {output_dir}")
     (output_dir / "log/").mkdir(parents=True, exist_ok=True)
     paths = ("nextflow.config", "conf/", "assets/")
     ccbr_tools.pipeline.util.copy_config(paths, repo_base=repo_base, outdir=output_dir)
@@ -204,7 +204,7 @@ def main():
     cli()
 
 
-cli(prog_name="tool_name")
+cli(prog_name="mosuite-nxf")
 
 if __name__ == "__main__":
     main()
