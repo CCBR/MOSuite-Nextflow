@@ -1,25 +1,11 @@
-log.info """\
-MOSuite-nxf $workflow.manifest.version
-=============
-NF version   : $nextflow.version
-runName      : $workflow.runName
-username     : $workflow.userName
-configs      : $workflow.configFiles
-profile      : $workflow.profile
-cmd line     : $workflow.commandLine
-start time   : $workflow.start
-projectDir   : $workflow.projectDir
-launchDir    : $workflow.launchDir
-workDir      : $workflow.workDir
-homeDir      : $workflow.homeDir
-samplesheet  : ${params.samplesheet}
-counts       : ${params.counts}
-"""
-.stripIndent()
 
+// modules
 include { create_multiOmicDataSet_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
 include { clean_raw_counts } from './modules/local/mosuite/clean_raw_counts/'
 include { filter_counts } from './modules/local/mosuite/filter_counts/'
+
+// plugins
+include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
 
 // workflow.onComplete {
 //     if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
@@ -30,7 +16,35 @@ include { filter_counts } from './modules/local/mosuite/filter_counts/'
 //     }
 // }
 
+
+workflow LOG {
+    log.info """\
+        MOSuite-nxf $workflow.manifest.version
+        =============
+        NF version   : $nextflow.version
+        runName      : $workflow.runName
+        username     : $workflow.userName
+        configs      : $workflow.configFiles
+        profile      : $workflow.profile
+        cmd line     : $workflow.commandLine
+        start time   : $workflow.start
+        projectDir   : $workflow.projectDir
+        launchDir    : $workflow.launchDir
+        workDir      : $workflow.workDir
+        homeDir      : $workflow.homeDir
+        samplesheet  : ${params.samplesheet}
+        counts       : ${params.counts}
+        """
+        .stripIndent()
+
+    log.info paramsSummaryLog(workflow)
+}
+
+
 workflow {
+    LOG()
+    validateParameters()
+
     ch_input = Channel.fromPath(file(params.samplesheet, checkIfExists: true))
         .combine(Channel.fromPath(file(params.counts, checkIfExists: true)))
 
