@@ -139,6 +139,22 @@
             "description": "",
             "default": "",
             "properties": {
+                "diff_count_type": {
+                    "type": "string",
+                    "default": "filt"
+                },
+                "diff_sub_count_type": {
+                    "type": "string"
+                },
+                "diff_sample_id_colname": {
+                    "type": "string"
+                },
+                "diff_feature_id_colname": {
+                    "type": "string"
+                },
+                "diff_samples_to_include": {
+                    "type": "string"
+                },
                 "diff_covariates_colnames": {
                     "type": "string"
                 },
@@ -159,6 +175,96 @@
                 "diff_voom_normalization_method": {
                     "type": "string",
                     "default": "quantile"
+                }
+            }
+        },
+        "filter_diff": {
+            "title": "Filter differential",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "filter_diff_significance_column": {
+                    "type": "string",
+                    "default": "adjpval"
+                },
+                "filter_diff_significance_cutoff": {
+                    "type": "number",
+                    "default": 0.05
+                },
+                "filter_diff_change_column": {
+                    "type": "string",
+                    "default": "logFC"
+                },
+                "filter_diff_change_cutoff": {
+                    "type": "number",
+                    "default": 1
+                },
+                "filter_diff_filtering_mode": {
+                    "type": "string",
+                    "default": "any"
+                },
+                "filter_diff_include_estimates": {
+                    "type": "string",
+                    "default": "FC,logFC,tstat,pval,adjpval"
+                },
+                "filter_diff_round_estimates": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "filter_diff_rounding_decimal_for_percent_cells": {
+                    "type": "integer",
+                    "default": 0
+                },
+                "filter_diff_contrast_filter": {
+                    "type": "string",
+                    "default": "none"
+                },
+                "filter_diff_contrasts": {
+                    "type": "string"
+                },
+                "filter_diff_groups": {
+                    "type": "string"
+                },
+                "filter_diff_groups_filter": {
+                    "type": "string",
+                    "default": "none"
+                },
+                "filter_diff_label_font_size": {
+                    "type": "number",
+                    "default": 6
+                },
+                "filter_diff_label_distance": {
+                    "type": "number",
+                    "default": 1
+                },
+                "filter_diff_y_axis_expansion": {
+                    "type": "number",
+                    "default": 0.08
+                },
+                "filter_diff_fill_colors": {
+                    "type": "string",
+                    "default": "steelblue1,whitesmoke"
+                },
+                "filter_diff_pie_chart_in_3d": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "filter_diff_bar_width": {
+                    "type": "number",
+                    "default": 0.4
+                },
+                "filter_diff_draw_bar_border": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "filter_diff_plot_type": {
+                    "type": "string",
+                    "default": "bar"
+                },
+                "filter_diff_plot_titles_fontsize": {
+                    "type": "number",
+                    "default": 12
                 }
             }
         },
@@ -194,6 +300,12 @@
         },
         {
             "$ref": "#/$defs/diff_counts"
+        },
+        {
+            "$ref": "#/$defs/diff_counts"
+        },
+        {
+            "$ref": "#/$defs/filter_diff"
         },
         {
             "$ref": "#/$defs/developer_options"

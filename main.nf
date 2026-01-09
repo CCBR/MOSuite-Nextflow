@@ -6,6 +6,7 @@ include { filter_counts } from './modules/local/mosuite/filter_counts/'
 include { normalize_counts } from './modules/local/mosuite/normalize_counts/'
 include { batch_correct_counts } from './modules/local/mosuite/batch_correct_counts/'
 include { diff_counts } from './modules/local/mosuite/diff_counts/'
+include { filter_diff } from './modules/local/mosuite/filter_diff/'
 
 // plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
@@ -73,6 +74,10 @@ workflow {
     diff_counts(
         ch_moo,
         [ params.diff_covariates_colnames, params.diff_contrast_colname, params.diff_contrasts, params.diff_input_in_log_counts, params.diff_return_mean_and_sd, params.diff_voom_normalization_method ]
+    ).moo.set{ ch_moo }
+    filter_diff(
+        ch_moo,
+        [ params.filter_diff_significance_column, params.filter_diff_significance_cutoff, params.filter_diff_change_column, params.filter_diff_change_cutoff, params.filter_diff_filtering_mode, params.filter_diff_include_estimates, params.filter_diff_round_estimates, params.filter_diff_rounding_decimal_for_percent_cells, params.filter_diff_contrast_filter, params.filter_diff_contrasts, params.filter_diff_groups, params.filter_diff_groups_filter, params.filter_diff_label_font_size, params.filter_diff_label_distance, params.filter_diff_y_axis_expansion, params.filter_diff_fill_colors, params.filter_diff_pie_chart_in_3d, params.filter_diff_bar_width, params.filter_diff_draw_bar_border, params.filter_diff_plot_type, params.filter_diff_plot_titles_fontsize ]
     ).moo.set{ ch_moo }
 
 }
