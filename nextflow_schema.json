@@ -133,6 +133,35 @@
                 }
             }
         },
+        "diff_counts": {
+            "title": "Differential counts",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "diff_covariates_colnames": {
+                    "type": "string"
+                },
+                "diff_contrast_colname": {
+                    "type": "string"
+                },
+                "diff_contrasts": {
+                    "type": "string"
+                },
+                "diff_input_in_log_counts": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "diff_return_mean_and_sd": {
+                    "type": "boolean",
+                    "default": false
+                },
+                "diff_voom_normalization_method": {
+                    "type": "string",
+                    "default": "quantile"
+                }
+            }
+        },
         "developer_options": {
             "title": "Developer options",
             "type": "object",
@@ -162,6 +191,9 @@
         },
         {
             "$ref": "#/$defs/batch_correct_counts"
+        },
+        {
+            "$ref": "#/$defs/diff_counts"
         },
         {
             "$ref": "#/$defs/developer_options"

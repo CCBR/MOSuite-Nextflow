@@ -5,6 +5,7 @@ include { clean_raw_counts } from './modules/local/mosuite/clean_raw_counts/'
 include { filter_counts } from './modules/local/mosuite/filter_counts/'
 include { normalize_counts } from './modules/local/mosuite/normalize_counts/'
 include { batch_correct_counts } from './modules/local/mosuite/batch_correct_counts/'
+include { diff_counts } from './modules/local/mosuite/diff_counts/'
 
 // plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
@@ -68,6 +69,10 @@ workflow {
     batch_correct_counts(
         ch_moo,
         [ params.batch_covariates_colnames, params.batch_colname, params.batch_label_colname, params.batch_colors_for_plots ]
+    ).moo.set{ ch_moo }
+    diff_counts(
+        ch_moo,
+        [ params.diff_covariates_colnames, params.diff_contrast_colname, params.diff_contrasts, params.diff_input_in_log_counts, params.diff_return_mean_and_sd, params.diff_voom_normalization_method ]
     ).moo.set{ ch_moo }
 
 }
