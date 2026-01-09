@@ -35,5 +35,5 @@ workflow {
 
     ch_moo = ch_input |
         create_multiOmicDataSet_from_files
-    clean_raw_counts(ch_moo, [ params.aggregate_rows_with_duplicate_gene_names, params.cleanup_column_names, params.split_gene_name ])
+    clean_raw_counts(ch_moo, [ params.aggregate_rows_with_duplicate_gene_names, params.cleanup_column_names, params.split_gene_name, params.gene_name_column_to_use_for_collapsing_duplicates ])
 }

@@ -3,11 +3,11 @@ process clean_raw_counts {
 
     input:
     path(moo)
-    tuple val(aggregate_rows_with_duplicate_gene_names), val(cleanup_column_names), val(split_gene_name)
+    tuple val(aggregate_rows_with_duplicate_gene_names), val(cleanup_column_names), val(split_gene_name), val(gene_column_name_to_use_for_collapsing_duplicates)
 
     output:
     path("moo_clean.rds"), emit: 'moo'
-    path("figures/"), emit: figures
+    path("figures/**"), emit: figures
 
     script:
     """
