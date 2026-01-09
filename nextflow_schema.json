@@ -1,0 +1,131 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/CCBR/MOSuite-Nextflow//nextflow_schema.json",
+    "title": "CCBR/MOSuite-Nextflow pipeline parameters",
+    "description": "Nextflow pipeline for differential multi-omics analysis",
+    "type": "object",
+    "$defs": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": ["input"],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "schema": "assets/schema_input.json",
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "samplesheet": {
+                    "type": "string"
+                },
+                "counts": {
+                    "type": "string"
+                },
+                "outputDir": {
+                    "type": "string",
+                    "default": "results"
+                },
+                "tracedir": {
+                    "type": "string",
+                    "default": "results/pipeline_info"
+                },
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "link"
+                }
+            }
+        },
+        "clean_raw_counts": {
+            "title": "Clean raw counts",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "aggregate_rows_with_duplicate_gene_names": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "cleanup_column_names": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "split_gene_name": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "gene_name_column_to_use_for_collapsing_duplicates": {
+                    "type": "string"
+                }
+            }
+        },
+        "filter_counts": {
+            "title": "Filter counts",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "filter_group_colname": {
+                    "type": "string",
+                    "default": "Group"
+                },
+                "filter_label_colname": {
+                    "type": "string"
+                },
+                "filter_minimum_count_value_to_be_considered_nonzero": {
+                    "type": "integer",
+                    "default": 8
+                },
+                "filter_minimum_number_of_samples_with_nonzero_counts_in_total": {
+                    "type": "integer",
+                    "default": 7
+                },
+                "filter_minimum_number_of_samples_with_nonzero_counts_in_a_group": {
+                    "type": "integer",
+                    "default": 3
+                },
+                "filter_use_cpm_counts": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "filter_use_group_based": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "developer_options": {
+            "title": "Developer options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "container": {
+                    "type": "string",
+                    "default": "nciccbr/mosuite:v0.2.0.9000_3807d01",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/clean_raw_counts"
+        },
+        {
+            "$ref": "#/$defs/filter_counts"
+        },
+        {
+            "$ref": "#/$defs/developer_options"
+        }
+    ]
+}
