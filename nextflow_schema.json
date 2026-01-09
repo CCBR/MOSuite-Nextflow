@@ -89,6 +89,28 @@
                 }
             }
         },
+        "normalize_counts": {
+            "title": "Normalize counts",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "norm_group_colname": {
+                    "type": "string",
+                    "default": "Group"
+                },
+                "norm_label_colname": {
+                    "type": "string"
+                },
+                "norm_input_in_log_counts": {
+                    "type": "boolean"
+                },
+                "voom_normalization_method": {
+                    "type": "string",
+                    "default": "quantile"
+                }
+            }
+        },
         "developer_options": {
             "title": "Developer options",
             "type": "object",
@@ -112,6 +134,9 @@
         },
         {
             "$ref": "#/$defs/filter_counts"
+        },
+        {
+            "$ref": "#/$defs/normalize_counts"
         },
         {
             "$ref": "#/$defs/developer_options"

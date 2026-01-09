@@ -3,6 +3,7 @@
 include { create_multiOmicDataSet_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
 include { clean_raw_counts } from './modules/local/mosuite/clean_raw_counts/'
 include { filter_counts } from './modules/local/mosuite/filter_counts/'
+include { normalize_counts } from './modules/local/mosuite/normalize_counts/'
 
 // plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
@@ -59,4 +60,9 @@ workflow {
         ch_moo,
         [ params.filter_group_colname, params.filter_label_colname, params.filter_minimum_count_value_to_be_considered_nonzero, params.filter_minimum_number_of_samples_with_nonzero_counts_in_total, params.filter_minimum_number_of_samples_with_nonzero_counts_in_a_group, params.filter_use_cpm_counts, params.filter_use_group_based ]
     ).moo.set{ ch_moo }
+    normalize_counts(
+        ch_moo,
+        [ params.norm_group_colname, params.norm_label_colname, params.norm_input_in_log_counts, params.voom_normalization_method ]
+    ).moo.set{ ch_moo }
+
 }
