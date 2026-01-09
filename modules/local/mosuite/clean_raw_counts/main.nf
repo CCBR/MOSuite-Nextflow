@@ -7,13 +7,13 @@ process clean_raw_counts {
 
     output:
     path("moo_clean.rds"), emit: moo
-    path("figures/**"), emit: figures
+    path("figures/**"), emit: figures, optional: true
 
     script:
     """
     #!/usr/bin/env Rscript
 
-    options(MOO_SAVE_PLOTS = TRUE)
+    options(moo_save_plots = TRUE)
     library(MOSuite)
 
     true <- TRUE
