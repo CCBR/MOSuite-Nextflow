@@ -19,6 +19,7 @@ counts       : ${params.counts}
 
 include { create_multiOmicDataSet_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
 include { clean_raw_counts } from './modules/local/mosuite/clean_raw_counts/'
+include { filter_counts } from './modules/local/mosuite/filter_counts/'
 
 // workflow.onComplete {
 //     if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
@@ -33,7 +34,15 @@ workflow {
     ch_input = Channel.fromPath(file(params.samplesheet, checkIfExists: true))
         .combine(Channel.fromPath(file(params.counts, checkIfExists: true)))
 
-    ch_moo = ch_input |
-        create_multiOmicDataSet_from_files
-    clean_raw_counts(ch_moo, [ params.aggregate_rows_with_duplicate_gene_names, params.cleanup_column_names, params.split_gene_name, params.gene_name_column_to_use_for_collapsing_duplicates ])
+    ch_input |
+        create_multiOmicDataSet_from_files |
+        set{ ch_moo }
+    clean_raw_counts(
+        ch_moo, 
+        [ params.aggregate_rows_with_duplicate_gene_names, params.cleanup_column_names, params.split_gene_name, params.gene_name_column_to_use_for_collapsing_duplicates ]
+    ).moo.set{ ch_moo }
+    filter_counts(
+        ch_moo,
+        [ params.filter_group_colname, params.filter_label_colname, params.filter_minimum_count_value_to_be_considered_nonzero, params.filter_minimum_number_of_samples_with_nonzero_counts_in_total, params.filter_minimum_number_of_samples_with_nonzero_counts_in_a_group, params.filter_use_cpm_counts, params.filter_use_group_based ]
+    ).moo.set{ ch_moo }
 }
