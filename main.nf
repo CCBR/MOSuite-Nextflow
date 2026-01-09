@@ -12,12 +12,12 @@ projectDir   : $workflow.projectDir
 launchDir    : $workflow.launchDir
 workDir      : $workflow.workDir
 homeDir      : $workflow.homeDir
-input        : ${params.input}
+samplesheet  : ${params.samplesheet}
+counts       : ${params.counts}
 """
 .stripIndent()
 
-include { FASTQC } from "./modules/local/qc.nf"
-include { BWA_MEM } from './modules/CCBR/bwa/mem'
+include { create_multiOmicDataset_from_files } from './modules/local/mosuite/create_multiOmicDataSet_from_files/'
 
 workflow.onComplete {
     if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
@@ -28,25 +28,9 @@ workflow.onComplete {
     }
 }
 
-workflow qc {
-    raw_fastqs = Channel
-                .fromPath(params.input)
-                .map { file -> tuple(file.simpleName, file) }
-    raw_fastqs | FASTQC
-}
-
-process yeet {
-    container "${params.containers.base}"
-
-    output:
-    stdout
-
-    script:
-    """
-    echo ${params.input}
-    """
-}
-
 workflow {
-    yeet | view
+    ch_input = Channel.fromPath(file(params.samplesheet, checkIfExists: true))
+        .combine(Channel.fromPath(file(params.counts, checkIfExists: true)))
+
+    ch_input | create_multiOmicDataset_from_files
 }
