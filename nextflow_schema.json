@@ -111,6 +111,28 @@
                 }
             }
         },
+        "batch_correct_counts": {
+            "title": "Batch correct counts",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "batch_covariates_colnames": {
+                    "type": "string",
+                    "default": "Group"
+                },
+                "batch_colname": {
+                    "type": "string",
+                    "default": "Batch"
+                },
+                "batch_label_colname": {
+                    "type": "string"
+                },
+                "batch_colors_for_plots": {
+                    "type": "string"
+                }
+            }
+        },
         "developer_options": {
             "title": "Developer options",
             "type": "object",
@@ -137,6 +159,9 @@
         },
         {
             "$ref": "#/$defs/normalize_counts"
+        },
+        {
+            "$ref": "#/$defs/batch_correct_counts"
         },
         {
             "$ref": "#/$defs/developer_options"

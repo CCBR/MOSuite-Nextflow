@@ -4,6 +4,7 @@ include { create_multiOmicDataSet_from_files } from './modules/local/mosuite/cre
 include { clean_raw_counts } from './modules/local/mosuite/clean_raw_counts/'
 include { filter_counts } from './modules/local/mosuite/filter_counts/'
 include { normalize_counts } from './modules/local/mosuite/normalize_counts/'
+include { batch_correct_counts } from './modules/local/mosuite/batch_correct_counts/'
 
 // plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
@@ -53,7 +54,7 @@ workflow {
         create_multiOmicDataSet_from_files |
         set{ ch_moo }
     clean_raw_counts(
-        ch_moo, 
+        ch_moo,
         [ params.aggregate_rows_with_duplicate_gene_names, params.cleanup_column_names, params.split_gene_name, params.gene_name_column_to_use_for_collapsing_duplicates ]
     ).moo.set{ ch_moo }
     filter_counts(
@@ -63,6 +64,10 @@ workflow {
     normalize_counts(
         ch_moo,
         [ params.norm_group_colname, params.norm_label_colname, params.norm_input_in_log_counts, params.voom_normalization_method ]
+    ).moo.set{ ch_moo }
+    batch_correct_counts(
+        ch_moo,
+        [ params.batch_covariates_colnames, params.batch_colname, params.batch_label_colname, params.batch_colors_for_plots ]
     ).moo.set{ ch_moo }
 
 }
