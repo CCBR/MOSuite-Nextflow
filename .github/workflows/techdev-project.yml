@@ -28,7 +28,7 @@ jobs:
           owner: CCBR
 
       - name: Add to CCBR techdev project
-        uses: actions/add-to-project@v1.0.2
+        uses: actions/add-to-project@v2.0.0
         with:
           project-url: https://github.com/orgs/CCBR/projects/17
           github-token: ${{ steps.generate-token.outputs.token }}
@@ -47,7 +47,7 @@ jobs:
           owner: NIDAP-Community
 
       - name: Add to NIDAP MOSuite project
-        uses: actions/add-to-project@v1.0.2
+        uses: actions/add-to-project@v2.0.0
         with:
           project-url: https://github.com/orgs/NIDAP-Community/projects/3
           github-token: ${{ steps.generate-token.outputs.token }}
